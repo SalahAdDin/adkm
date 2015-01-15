@@ -1,0 +1,8 @@
+{% extends "error_base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans 'Client Error' %}{% endblock %}
+{% block body_class %}template-400{% endblock %}
+{% block content %}
+    % trans "There's been an error. We have problems with customer requests, ie, of your computer, please check it." %}
+{% endblock %}
+{% block error %}<span>400</span>{% trans 'error'|capfirst %}{% endblock %}

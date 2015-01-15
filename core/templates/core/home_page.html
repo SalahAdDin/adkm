@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static core_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block carousel %}
+    {% news_listing_homepage %}
+{% endblock %}
+
+{% if self.date %}
+    {% block heading %}
+        <div class="common-headers">
+            <h2><b class="glyphicon glyphicon-forward"></b> Anadolu - Centro de Lengua y Cultura, Colombia <span>Bienvenidos</span></h2>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    {% include "includes/body.html" with body=self.body only %}
+    <div class="thumb-menu">
+      {% include "includes/home_carousel.html" with carousel_items=self.carousel_items.all only %}
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'anadolu/js/bootstrap/carousel.js' %}"></script>
+{% endblock %}

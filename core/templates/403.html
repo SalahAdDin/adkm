@@ -1,0 +1,8 @@
+{% extends "error_base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans 'forbidden'|capfirst %}{% endblock %}
+{% block body_class %}template-403{% endblock %}
+{% block content %}
+    {% trans "We're sorry, but the requested action is forbidden" %}
+{% endblock %}
+{% block error %}<span>403</span>{% trans 'error'|capfirst %}{% endblock %}

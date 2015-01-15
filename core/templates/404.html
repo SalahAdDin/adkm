@@ -1,0 +1,8 @@
+{% extends "error_base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans 'Page not found' %}{% endblock %}
+{% block body_class %}template-404{% endblock %}
+{% block content %}
+    {% trans "We're sorry, but the requested page could not be found." %}
+{% endblock %}
+{% block error %}<span>404</span>{% trans 'error'|capfirst %}{% endblock %}

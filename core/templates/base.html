@@ -1,0 +1,149 @@
+{% load compress static wagtailuserbar %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load core_tags cache %}
+{% load core_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head lang="es">
+        <meta charset="utf-8" />
+        <!--
+        Desarrollado por Barakat Studios - SalahAdDin
+        =============================================
+
+        This website is powered by BootStrap / SASS - making wep developt and desing more easy!
+        -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+        <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% endif %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script src="{% static 'anadolu/js/modernizr/modernizr.js' %}"></script>
+
+        {% compress css %}
+            
+            <!-- link rel="stylesheet" type="text/x-scss" href="{% static 'anadolu/sass/styles.scss' %}" -->
+            <link rel="stylesheet" href="{% static 'anadolu/stylesheets/docs.min.css' %}"/>
+            <link rel="stylesheet" href="{% static 'anadolu/stylesheets/styles.css' %}"/>
+        {% endcompress %}
+
+
+        {% block extra_css %}
+            
+        {% endblock %}
+        <!--<link rel="icon" href="{% static 'anadolu/images/favicon.ico' %}" type="image/x-icon; charset=binary"/> -->
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        <header>
+            <div class="row icon-menu max-width">
+                <div class="col-md-1 col-md-offset-9">
+                    <hr>
+                    <div class="row">
+                        <a href="{% pageurl site_root %}" class="icomoon icomoon-home" style="margin-left: 25%;"><strong>01</strong></a>
+                        <a style="display: block">{% trans 'Inicio' %}</a>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row">
+                        <hr><a href="{% slugurl 'sobre-nosotros' %}" class="icomoon icomoon-users" style="margin-left: 25%;"><strong>03</strong></a>
+                        <a style="display: block">{% trans 'Nosotros' %}</a>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row">
+                        <hr><a href="{% slugurl 'contactenos' %}" class="icomoon icomoon-mail" style="margin-left: 25%;"><strong>02</strong></a>
+                        <a style="display: block">{% trans 'Contacto' %}</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            {% wagtailuserbar %}
+            <div class="up">
+                <div class="row max-width">
+                    <div class="col-xs-4 col-md-3">
+                        {% block menu %}
+                            {% get_site_root as site_root %}
+                            {% side_menu parent=site_root calling_page=self %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-xs-14 col-sm-7 col-md-9" style="padding: 0px;">
+                        {% block carousel %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="row down max-width">
+                <div class="col-xs-4 col-md-3 bgray">
+                    <div class="row search-box">
+                        {% block search_box %}
+                            {% include "includes/search_box.html" only %}
+                        {% endblock %}
+                    </div>
+                    {% block events %}
+                        {% event_listing_homepage %}
+                    {% endblock %}
+                    <div class="row login-box">
+                    {% block login_box %}
+                        {% include "includes/login_box.html" only %}
+                    {% endblock %}
+                    </div>
+                </div>
+                <div class="col-xs-14 col-sm-7 col-md-9 content">
+                    {% block heading %}
+                    <div class="common-headers">
+                        <h2><b class="glyphicon glyphicon-forward"></b> {{ self.title }}<a class="icomoon icomoon-file"></a></h2>
+                    </div>
+                    {% endblock %}
+
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+                {% block adverts %}
+                    {# Uses a snippet - allows adverts to appear on every page #}
+                    {% adverts %}
+                {% endblock %}
+            </div>
+        </main>
+        <footer>
+            <div class="row max-width">
+                <div class="col-md-3 col-md-offset-1">
+                    <a class="icomoon icomoon-googleplus" href="https://plus.google.com/"></a>
+                    <a class="icomoon icomoon-facebook" href="https://www.facebook.com/"></a>
+                    <a class="icomoon icomoon-twitter" href="https://twitter.com/"></a>
+                    <a class="icomoon icomoon-feed" href=""></a>
+                    <a class="icomoon icomoon-youtube" href="https://www.youtube.com/user/"></a>
+                </div>
+                <div class="col-md-1 col-md-offset-5"><hr><b class="glyphicon glyphicon-forward"></b><a style="display: inline-block;" href="{% pageurl site_root %}">{% trans 'Inicio' %}</a></div>
+                <div class="col-md-1 "><hr><b class="glyphicon glyphicon-forward"></b><a style="display: inline-block;" href="{% slugurl 'sobre-nosotros' %}">{% trans 'Nosotros' %}</a></div>
+                <div class="col-md-1 "><hr><b class="glyphicon glyphicon-forward"></b><a style="display: inline-block;" href="{% slugurl 'contactenos' %}">{% trans 'Contacto' %}</a></div>
+            </div>
+        </footer>
+        <!-- <script src="{% static 'anadolu/bower_components/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'anadolu/bower_components/foundation/js/foundation.min.js' %}"></script> -->
+        {% compress js %}
+        <script src="{% static 'anadolu/js/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'anadolu/js/bootstrap/dropdown.js' %}"></script>
+        <script src="{% static 'anadolu/js/bootstrap/carousel.js' %}"></script>
+        <script src="{% static 'anadolu/js/adkm.js' %}"></script>
+        {% endcompress %}
+        <script>
+            $(document).ready( function() {
+                $('.dropdown-toggle').dropdown();
+                $('.carousel').carousel({
+                  interval: 2000
+                });
+            });
+        </script>
+        {% block extra_js %}{% endblock %}
+    </body>
+</html>

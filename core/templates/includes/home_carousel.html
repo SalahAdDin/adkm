@@ -1,0 +1,23 @@
+{% load wagtailimages_tags wagtailembeds_tags %}
+
+<div class="row">
+    {% for carousel_item in carousel_items %}
+    <div class="col-sm-4 col-md-3">
+        <a class="thumbnail" href="{{ carousel_item.link }}">
+            {% if carousel_item.link_page.specific.feed_image %}
+                {% image carousel_item.link_page.specific.feed_image width-240 as carouselimagedata %}
+            <img data-src="holder.js/100%x180" src="{{ carouselimagedata.url }}" width="{{ carouselimagedata.width }}"
+                 height="{{ carouselimagedata.height }}" alt="{{ carouselimagedata.alt }}"
+                 title="{{ carousel_item.caption }}"/>
+            {% endif %}
+            <div class="caption">
+                <h5>{{ carousel_item.link_page.title }}</h5>
+            </div>
+        </a>
+    </div>
+    {% if forloop.counter|divisibleby:'4' %}
+</div>
+<div class="row">
+    {% endif %}
+    {% endfor %}
+</div>

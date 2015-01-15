@@ -1,0 +1,48 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags %}
+{% load i18n %}
+{% block extra_css %}
+{% compress css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/home.scss" type="text/x-scss"/>
+{% endcompress %}
+{% endblock %}
+{% block furniture %}
+<div class="content-wrapper">
+    <div class="content">
+        <header class="merged nice-padding">
+            <div class="row row-flush">
+                {% if user.email %}
+                <div class="col9">
+                    <h1>{% block titletag %}{% endblock %}</h1>
+
+                    <h2>{% block content %}{% endblock %}</h2>
+                </div>
+            </div>
+        </header>
+        {# Always show messages div so it can be appended to by JS #}
+        <section class="panel summary nice-padding">
+            <ul class="stats">
+                <li></li>
+                <li><a>{% block error %}{% endblock %}</a></li>
+                <li></li>
+            </ul>
+        </section>
+        <div class="panel nice-padding">
+            <section>
+                <script type="text/javascript">
+                  if(window.location.href.toString().indexOf('popup') != -1){
+                    document.write('<a href="javascript:window.close()" class="btn btn-info btn-large">{% trans 'Close window' %}</a> ');
+                  }else {
+                      if (document.referrer != '') {
+                          document.write('<a href="javascript:history.back()" class="btn btn-info btn-large">{% trans 'Go back' %}</a> ');
+                      }
+                      {% if request and user.is_authenticated and user.is_staff %}
+                      document.write('<a href="{% url 'admin:index' %}" class="btn btn-large">Go to admin home</a> ');
+                      {% endif %}
+                  }
+                </script>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
