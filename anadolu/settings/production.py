@@ -6,6 +6,35 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+ALLOWED_HOSTS = ['.anadoludkm.co','.anadoludkm.co.']
+
+ADMINS = (
+    ('Anadolu', 'oficial@anadoludkm.co'),
+)
+
+MANAGERS = ADMINS
+
+#Server's Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'anadoludkmco',
+        'USER': 'anadolu',
+        'PASSWORD': 'Hikmetadkm',
+        'HOST': '',
+        'PORT': '',
+        'CONN_MAX_AGE': 600,
+    }
+}
+
+#Static Files
+
+MEDIA_ROOT = '/home/salahaddinal/webapps/adkmco_static/media'
+STATIC_ROOT = '/home/salahaddinal/webapps/adkmco_static/static'
+STATICFILES_DIRS = join(PROJECT_ROOT, '/core/static/anadolu/')
+
+MEDIA_URL = '/static/media/'
+STATIC_URL = '/static/static/'
 
 # Compress static files offline
 # http://django-compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
@@ -41,6 +70,25 @@ CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 #         }
 #     }
 # }
+
+#Search
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'URLS': ['http://localhost:9200'],
+        'INDEX': 'anadolu',
+        'TIMEOUT': 5,
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Web Mail Servers
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'anadoludkmco'
+EMAIL_HOST_PASSWORD = 'Feyza2015'
+DEFAULT_FROM_EMAIL = 'oficial@anadoludkm.co'
+SERVER_EMAIL = 'oficial@anadoludkm.co'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
